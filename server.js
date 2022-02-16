@@ -22,3 +22,22 @@ app.get('/api/hello', function(req, res) {
 app.listen(port, function() {
   console.log(`Listening on port ${port}`);
 });
+
+/*Data Connection*/
+let uri = 'mongodb+srv://mon-project-wee:monproject@monprojectwee.brqps.mongodb.net/monprojectWee?retryWrites=true&w=majority'
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+let urlSchema = new mongoose.Schema({
+  original : {type: String, required: true},
+  short: Number
+})
+
+let Url = mongoose.model('Url', urlSchema)
+
+let bodyParser = require('body-parser')
+let responseObject = {}
+app.post('api/shorturl', bodyParser.urlencoded({ extended: false }), (request, response) => {
+  
+  
+  response.json(responseObject)
+})
